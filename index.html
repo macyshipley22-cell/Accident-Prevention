@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Accident Prevention</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --red: #C8102E;
+      --dark-red: #8B0000;
+      --black: #0A0A0A;
+      --off-white: #F5F2EC;
+      --warm-gray: #E8E4DC;
+      --text-gray: #4A4A4A;
+      --accent: #FF4444;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--off-white);
+      color: var(--black);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      color: var(--off-white);
+      letter-spacing: 0.08em;
+    }
+
+    .nav-logo span { color: var(--red); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(245,242,236,0.7);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--red); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      background: var(--black);
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 70% 50%, rgba(200,16,46,0.15) 0%, transparent 70%),
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 80px),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 80px);
+    }
+
+    .hero-road {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 180px;
+      background: #1a1a1a;
+      clip-path: polygon(0 40%, 100% 20%, 100% 100%, 0 100%);
+    }
+
+    .hero-road::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 10%;
+      width: 80%; height: 4px;
+      background: repeating-linear-gradient(90deg, #C8102E 0px, #C8102E 40px, transparent 40px, transparent 80px);
+      transform: translateY(-50%);
+      opacity: 0.6;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 4rem;
+      max-width: 900px;
+      animation: heroIn 1s ease both;
+    }
+
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--red);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      margin-bottom: 2rem;
+      animation: heroIn 1s 0.2s ease both;
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 9vw, 9rem);
+      color: var(--off-white);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.5rem;
+      animation: heroIn 1s 0.3s ease both;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--red);
+      display: block;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: rgba(245,242,236,0.65);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      animation: heroIn 1s 0.4s ease both;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      animation: heroIn 1s 0.5s ease both;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: white;
+      padding: 1rem 2.2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background: var(--dark-red); transform: translateY(-2px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--off-white);
+      padding: 1rem 2.2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid rgba(245,242,236,0.3);
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover { border-color: var(--red); color: var(--red); }
+
+    .hero-stat {
+      position: absolute;
+      right: 4rem;
+      bottom: 12rem;
+      text-align: right;
+      animation: heroIn 1s 0.6s ease both;
+    }
+
+    .hero-stat .big-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 7rem;
+      color: var(--red);
+      line-height: 1;
+      opacity: 0.9;
+    }
+
+    .hero-stat p {
+      color: rgba(245,242,236,0.5);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      max-width: 160px;
+      margin-left: auto;
+    }
+
+    /* SECTION BASE */
+    section { padding: 7rem 4rem; }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      line-height: 1.15;
+      color: var(--black);
+      margin-bottom: 1.5rem;
+    }
+
+    /* PROBLEM SECTION */
+    .problem {
+      background: var(--off-white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .problem-text p {
+      color: var(--text-gray);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 1.2rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      background: var(--black);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .stat-card:hover { transform: translateY(-4px); }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--red);
+    }
+
+    .stat-card .num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      color: var(--red);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-card p {
+      color: rgba(245,242,236,0.65);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    /* SOLUTION SECTION */
+    .solution {
+      background: var(--black);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .solution::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(200,16,46,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .solution .section-title { color: var(--off-white); }
+
+    .solution > p {
+      color: rgba(245,242,236,0.6);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      max-width: 600px;
+      margin-bottom: 4rem;
+    }
+
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .module-card {
+      border: 1px solid rgba(245,242,236,0.1);
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, background 0.3s;
+      cursor: default;
+    }
+
+    .module-card:hover {
+      border-color: var(--red);
+      background: rgba(200,16,46,0.05);
+    }
+
+    .module-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5rem;
+      color: rgba(200,16,46,0.2);
+      position: absolute;
+      top: -0.5rem; right: 1rem;
+      line-height: 1;
+    }
+
+    .module-icon {
+      font-size: 2rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .module-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      color: var(--off-white);
+      margin-bottom: 0.8rem;
+    }
+
+    .module-card p {
+      color: rgba(245,242,236,0.5);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* HOW IT WORKS */
+    .how {
+      background: var(--warm-gray);
+    }
+
+    .steps {
+      display: flex;
+      gap: 0;
+      margin-top: 4rem;
+      position: relative;
+    }
+
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 60px;
+      right: 60px;
+      height: 2px;
+      background: var(--red);
+      z-index: 0;
+    }
+
+    .step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      padding: 0 1.5rem;
+    }
+
+    .step-circle {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: var(--black);
+      border: 3px solid var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: var(--red);
+    }
+
+    .step h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      color: var(--black);
+      margin-bottom: 0.7rem;
+    }
+
+    .step p {
+      color: var(--text-gray);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* IMPACT */
+    .impact {
+      background: var(--off-white);
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .impact-visual {
+      background: var(--black);
+      padding: 3rem;
+      position: relative;
+    }
+
+    .impact-visual h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      color: rgba(245,242,236,0.4);
+      letter-spacing: 0.15em;
+      margin-bottom: 2rem;
+    }
+
+    .bar-chart { display: flex; flex-direction: column; gap: 1.2rem; }
+
+    .bar-row { display: flex; align-items: center; gap: 1rem; }
+
+    .bar-label {
+      color: rgba(245,242,236,0.6);
+      font-size: 0.8rem;
+      width: 120px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .bar-wrap { flex: 1; background: rgba(255,255,255,0.05); height: 28px; position: relative; }
+
+    .bar-fill {
+      height: 100%;
+      background: var(--red);
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding-right: 8px;
+      justify-content: flex-end;
+      transition: width 1.5s cubic-bezier(0.25,1,0.5,1);
+    }
+
+    .bar-fill span {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .impact-text p {
+      color: var(--text-gray);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 1.2rem;
+    }
+
+    .impact-points {
+      list-style: none;
+      margin-top: 2rem;
+    }
+
+    .impact-points li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+      color: var(--text-gray);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .impact-points li::before {
+      content: '→';
+      color: var(--red);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    /* CTA BANNER */
+    .cta-banner {
+      background: var(--red);
+      padding: 5rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .cta-banner h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      color: white;
+      line-height: 1;
+      max-width: 600px;
+    }
+
+    .btn-white {
+      background: white;
+      color: var(--red);
+      padding: 1.1rem 2.5rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: transform 0.2s;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .btn-white:hover { transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer {
+      background: var(--black);
+      padding: 3rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--off-white);
+      letter-spacing: 0.08em;
+    }
+
+    .footer-logo span { color: var(--red); }
+
+    footer p {
+      color: rgba(245,242,236,0.3);
+      font-size: 0.8rem;
+    }
+
+    /* ANIMATIONS */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* SIMULATOR SECTION */
+    .simulator {
+      background: var(--black);
+      padding: 7rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .simulator::before {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(200,16,46,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .simulator .section-title { color: var(--off-white); text-align: center; }
+    .simulator .section-label { text-align: center; }
+    .sim-intro {
+      color: rgba(245,242,236,0.55);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      text-align: center;
+    }
+    .sim-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+    }
+    .sim-hud {
+      width: 100%;
+      max-width: 800px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    .sim-hud-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 0.8rem 1rem;
+      text-align: center;
+    }
+    .sim-hud-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(245,242,236,0.4);
+      margin-bottom: 0.3rem;
+    }
+    .sim-hud-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: var(--off-white);
+      line-height: 1;
+    }
+    #sim-score { color: #4ade80; }
+    #sim-speed { color: #facc15; }
+    #sim-lives { color: var(--red); }
+    #sim-distance { color: #60a5fa; }
+    .sim-canvas-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      border: 2px solid rgba(200,16,46,0.4);
+    }
+    #simCanvas { display: block; width: 100%; height: auto; }
+    .sim-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(10,10,10,0.88);
+      z-index: 10;
+    }
+    .sim-overlay h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.6rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    .sim-overlay p {
+      color: rgba(245,242,236,0.6);
+      font-size: 0.9rem;
+      text-align: center;
+      max-width: 380px;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .sim-btn {
+      background: var(--red);
+      color: white;
+      border: none;
+      padding: 0.9rem 2.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .sim-btn:hover { background: var(--dark-red); transform: translateY(-2px); }
+    .sim-final-score {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5rem;
+      color: #4ade80;
+      line-height: 1;
+      margin: 0.5rem 0;
+    }
+    .sim-rating-badge {
+      display: inline-block;
+      padding: 0.4rem 1.2rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .sim-controls {
+      display: flex;
+      gap: 2rem;
+      font-size: 0.8rem;
+      color: rgba(245,242,236,0.4);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .sim-controls span { display: flex; align-items: center; gap: 0.4rem; }
+    .sim-key {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: var(--off-white);
+    }
+    .sim-tip {
+      width: 100%;
+      max-width: 800px;
+      background: rgba(200,16,46,0.12);
+      border-left: 3px solid var(--red);
+      padding: 0.8rem 1.2rem;
+      font-size: 0.85rem;
+      color: rgba(245,242,236,0.7);
+      line-height: 1.5;
+      min-height: 52px;
+    }
+    .sim-tip strong { color: var(--off-white); }
+    @keyframes simFlashRed {
+      0%,100% { border-color: rgba(200,16,46,0.4); }
+      50% { border-color: rgba(200,16,46,1); box-shadow: 0 0 20px rgba(200,16,46,0.5); }
+    }
+    .sim-canvas-wrap.hit { animation: simFlashRed 0.3s ease; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 2rem; }
+      .nav-links { display: none; }
+      section { padding: 5rem 2rem; }
+      .problem, .impact { grid-template-columns: 1fr; gap: 3rem; }
+      .modules-grid { grid-template-columns: 1fr; }
+      .steps { flex-direction: column; gap: 2rem; }
+      .steps::before { display: none; }
+      .hero-content { padding: 0 2rem; }
+      .hero-stat { display: none; }
+      .cta-banner { flex-direction: column; text-align: center; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Accident<span>Prevention</span></div>
+    <ul class="nav-links">
+      <li><a href="#problem">The Problem</a></li>
+      <li><a href="#solution">Our Solution</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#impact">Impact</a></li>
+      <li><a href="#simulator">Simulator</a></li>
+      <li><a href="#contact" style="color:var(--red)">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-tag">Innovation &amp; Design Initiative</div>
+      <h1>Roads Won't<em>Wait.</em></h1>
+      <p>Repeat driving offenders are 3× more likely to cause fatal accidents. Our targeted remedial course is changing that — one driver at a time.</p>
+      <div class="hero-cta">
+        <a href="#solution" class="btn-primary">See the Solution</a>
+        <a href="#problem" class="btn-secondary">The Problem</a>
+      </div>
+    </div>
+    <div class="hero-stat">
+      <div class="big-num">43K</div>
+      <p>traffic deaths in the US last year</p>
+    </div>
+    <div class="hero-road"></div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="problem" id="problem">
+    <div class="problem-text fade-up">
+      <div class="section-label">The Problem</div>
+      <h2 class="section-title">Repeat Offenders Are a Systemic Crisis</h2>
+      <p>Every year, thousands of drivers with prior violations return to the road without any additional training or evaluation. The current system simply suspends licenses temporarily — then hands them back with no accountability.</p>
+      <p>Repeat offenders are statistically the most dangerous drivers on the road, yet they receive the least intervention. We believe that changes here.</p>
+    </div>
+    <div class="stats-grid fade-up">
+      <div class="stat-card">
+        <div class="num">3×</div>
+        <p>More likely to cause a fatal crash if you've had prior violations</p>
+      </div>
+      <div class="stat-card">
+        <div class="num">38%</div>
+        <p>Of all traffic fatalities involve a repeat offender driver</p>
+      </div>
+      <div class="stat-card">
+        <div class="num">1 in 5</div>
+        <p>Drivers involved in fatal crashes had a prior offense on record</p>
+      </div>
+      <div class="stat-card">
+        <div class="num">$340B</div>
+        <p>Annual economic cost of motor vehicle crashes in the US</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section class="solution" id="solution">
+    <div class="section-label" style="color:var(--red)">Our Solution</div>
+    <h2 class="section-title">A Mandatory Remedial Driving Course</h2>
+    <p>Before repeat offenders can reinstate their license, they must complete Accident Prevention — a structured, evidence-based course designed to correct the behaviors that lead to accidents.</p>
+    <div class="modules-grid">
+      <div class="module-card fade-up">
+        <div class="module-num">01</div>
+        <div class="module-icon">🧠</div>
+        <h3>Driver Psychology</h3>
+        <p>Understanding risk perception, overconfidence bias, and the mental habits that lead to dangerous decisions behind the wheel.</p>
+      </div>
+      <div class="module-card fade-up">
+        <div class="module-num">02</div>
+        <div class="module-icon">⚡</div>
+        <h3>Reaction & Hazard Training</h3>
+        <p>Simulated scenarios to sharpen hazard recognition, stopping distances, and response time in high-risk situations.</p>
+      </div>
+      <div class="module-card fade-up">
+        <div class="module-num">03</div>
+        <div class="module-icon">📋</div>
+        <h3>Traffic Law Review</h3>
+        <p>A comprehensive refresher on updated traffic laws, signage, right-of-way rules, and defensive driving techniques.</p>
+      </div>
+      <div class="module-card fade-up">
+        <div class="module-num">04</div>
+        <div class="module-icon">🚫</div>
+        <h3>Impaired Driving Awareness</h3>
+        <p>Education on the effects of alcohol, drugs, fatigue, and distraction — and evidence-based strategies to avoid them.</p>
+      </div>
+      <div class="module-card fade-up">
+        <div class="module-num">05</div>
+        <div class="module-icon">🤝</div>
+        <h3>Community Impact</h3>
+        <p>Real stories from accident survivors and first responders to build empathy and accountability in every participant.</p>
+      </div>
+      <div class="module-card fade-up">
+        <div class="module-num">06</div>
+        <div class="module-icon">✅</div>
+        <h3>Final Assessment</h3>
+        <p>A proctored written and practical evaluation. Passing is required before license reinstatement is approved.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how">
+    <div style="text-align:center; max-width:700px; margin:0 auto;">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title fade-up">From Offense to Road-Ready in 4 Steps</h2>
+    </div>
+    <div class="steps">
+      <div class="step fade-up">
+        <div class="step-circle">1</div>
+        <h3>Offense Flagged</h3>
+        <p>A repeat traffic violation is recorded by DMV systems and automatically triggers enrollment eligibility.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-circle">2</div>
+        <h3>Enroll in Course</h3>
+        <p>The driver registers for the Accident Prevention program, available online or in-person at certified centers.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-circle">3</div>
+        <h3>Complete All Modules</h3>
+        <p>Six modules completed over 2–4 weeks. Progress is tracked and attendance is verified each session.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-circle">4</div>
+        <h3>License Reinstated</h3>
+        <p>Upon passing the final assessment, the DMV is notified and the driver's license is fully reinstated.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACT -->
+  <section class="impact" id="impact">
+    <div class="impact-visual fade-up">
+      <h3>Projected Accident Reduction</h3>
+      <div class="bar-chart">
+        <div class="bar-row">
+          <div class="bar-label">DUI Recidivism</div>
+          <div class="bar-wrap"><div class="bar-fill" style="width:72%"><span>−72%</span></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Reckless Driving</div>
+          <div class="bar-wrap"><div class="bar-fill" style="width:58%"><span>−58%</span></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">At-fault Crashes</div>
+          <div class="bar-wrap"><div class="bar-fill" style="width:65%"><span>−65%</span></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Re-offense Rate</div>
+          <div class="bar-wrap"><div class="bar-fill" style="width:80%"><span>−80%</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fade-up">
+      <div class="section-label">Expected Impact</div>
+      <h2 class="section-title">Measurable Change on Our Roads</h2>
+      <p>Research from similar remedial programs across Europe and Canada shows dramatic reductions in repeat offenses when mandatory education is paired with license reinstatement requirements.</p>
+      <ul class="impact-points">
+        <li>Fewer repeat offenses mean fewer accidents and lives saved</li>
+        <li>Reduced financial and insurance burden on communities</li>
+        <li>Drivers emerge with genuine awareness, not just legal compliance</li>
+        <li>Creates accountability while offering a clear path to reinstatement</li>
+        <li>Scalable model that can be adopted by state DMV systems nationwide</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SIMULATOR -->
+  <section class="simulator" id="simulator">
+    <div class="section-label">Interactive</div>
+    <h2 class="section-title fade-up">Try the Road Hazard Simulator</h2>
+    <p class="sim-intro">Experience the dangers repeat offenders face — firsthand. Avoid hazards, keep your safety score above 85, and see what rating you earn.</p>
+    <div class="sim-inner">
+      <div class="sim-hud">
+        <div class="sim-hud-card"><div class="sim-hud-label">Safety Score</div><div class="sim-hud-val" id="sim-score">100</div></div>
+        <div class="sim-hud-card"><div class="sim-hud-label">Speed (mph)</div><div class="sim-hud-val" id="sim-speed">0</div></div>
+        <div class="sim-hud-card"><div class="sim-hud-label">Lives</div><div class="sim-hud-val" id="sim-lives">♥♥♥</div></div>
+        <div class="sim-hud-card"><div class="sim-hud-label">Distance (m)</div><div class="sim-hud-val" id="sim-distance">0</div></div>
+      </div>
+      <div class="sim-canvas-wrap" id="sim-canvas-wrap">
+        <canvas id="simCanvas" width="800" height="480"></canvas>
+        <div class="sim-overlay" id="sim-overlay-start">
+          <h2 style="color:var(--red)">Road Hazard Simulator</h2>
+          <p>Navigate a dangerous road, avoid hazards, and stay alive. Each collision costs a life and drops your safety score. Can you reach a passing grade?</p>
+          <button class="sim-btn" id="sim-btn-start">Start Driving</button>
+          <div class="sim-controls" style="margin-top:1.2rem">
+            <span><span class="sim-key">←</span><span class="sim-key">→</span> Steer</span>
+            <span><span class="sim-key">↑</span> Accelerate</span>
+            <span><span class="sim-key">↓</span> Brake</span>
+          </div>
+        </div>
+        <div class="sim-overlay" id="sim-overlay-gameover" style="display:none">
+          <h2 style="color:var(--red)">Drive Ended</h2>
+          <div class="sim-final-score" id="sim-final-score">72</div>
+          <div class="sim-rating-badge" id="sim-final-rating">Needs Improvement</div>
+          <p id="sim-final-message">You encountered multiple hazards. Our course teaches you to anticipate and avoid these situations.</p>
+          <button class="sim-btn" id="sim-btn-restart">Try Again</button>
+        </div>
+      </div>
+      <div class="sim-tip" id="sim-tip-bar"><strong>Tip:</strong> Use arrow keys to steer and control your speed. Avoid the hazard vehicles coming toward you.</div>
+      <div class="sim-controls">
+        <span><span class="sim-key">←</span><span class="sim-key">→</span> Steer</span>
+        <span><span class="sim-key">↑</span> Accelerate</span>
+        <span><span class="sim-key">↓</span> Brake</span>
+        <span>Mobile: tap left/right of screen</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner" id="contact">
+    <h2>Ready to Make Roads Safer for Everyone?</h2>
+    <a href="/cdn-cgi/l/email-protection#fa93949c95ba9b9999939e9f948e8a889f8c9f948e939594d495889d" class="btn-white">Contact Our Team</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Accident<span>Prevention</span></div>
+    <p>Innovation &amp; Design Class Project · 2026</p>
+    <p style="color:rgba(245,242,236,0.3); font-size:0.8rem;">Making roads safer, one driver at a time.</p>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Intersection Observer for fade-up animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 100);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Smooth nav highlight
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 200) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--red)' : '';
+      });
+    });
+
+    // ── SIMULATOR ──────────────────────────────────────────
+    (function() {
+      const canvas = document.getElementById('simCanvas');
+      const ctx = canvas.getContext('2d');
+      const W = 800, H = 480;
+      let simState = 'idle';
+      let score, speed, lives, distance, frame, hazards, particles, roadOffset, tipTimeout;
+      let keys = {}, playerX, invincible;
+      const ROAD_LEFT = 170, ROAD_RIGHT = 630;
+      const PLAYER_Y = 360, CAR_W = 50, CAR_H = 80;
+      const HAZARD_TYPES = [
+        { label: 'Distracted Driver', color: '#ef4444', tip: "Distracted drivers swerve unexpectedly — keep distance and stay alert." },
+        { label: 'Speeding Vehicle',  color: '#f97316', tip: "Speeding vehicles close gaps fast. Always check mirrors before lane changes." },
+        { label: 'Red Light Runner',  color: '#C8102E', tip: "Never assume an intersection is clear just because your light is green." },
+        { label: 'Drunk Driver',      color: '#a855f7', tip: "Erratic movement signals an impaired driver. Slow down and give space." },
+      ];
+
+      function initSim() {
+        score = 100; speed = 0; lives = 3; distance = 0;
+        frame = 0; hazards = []; particles = []; roadOffset = 0;
+        playerX = W / 2 - CAR_W / 2; invincible = false;
+        updateSimHUD();
+      }
+
+      function updateSimHUD() {
+        document.getElementById('sim-score').textContent = Math.max(0, Math.round(score));
+        document.getElementById('sim-speed').textContent = Math.round(speed * 3);
+        document.getElementById('sim-lives').textContent = '♥'.repeat(lives) + '♡'.repeat(Math.max(0, 3 - lives));
+        document.getElementById('sim-distance').textContent = Math.round(distance);
+      }
+
+      function showSimTip(text) {
+        clearTimeout(tipTimeout);
+        const bar = document.getElementById('sim-tip-bar');
+        bar.innerHTML = '<strong>Lesson:</strong> ' + text;
+        tipTimeout = setTimeout(() => { bar.innerHTML = '<strong>Tip:</strong> Use arrow keys to steer. Avoid the hazard vehicles coming toward you.'; }, 5000);
+      }
+
+      function drawRoad() {
+        const sky = ctx.createLinearGradient(0, 0, 0, H * 0.45);
+        sky.addColorStop(0, '#0d1117'); sky.addColorStop(1, '#1a2030');
+        ctx.fillStyle = sky; ctx.fillRect(0, 0, W, H);
+        ctx.fillStyle = '#1c1c1c';
+        ctx.beginPath();
+        ctx.moveTo(ROAD_LEFT - 60, H); ctx.lineTo(ROAD_RIGHT + 60, H);
+        ctx.lineTo(ROAD_RIGHT, H * 0.45); ctx.lineTo(ROAD_LEFT, H * 0.45);
+        ctx.closePath(); ctx.fill();
+        ctx.strokeStyle = '#F5F2EC'; ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.moveTo(ROAD_LEFT - 60, H); ctx.lineTo(ROAD_LEFT, H * 0.45); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(ROAD_RIGHT + 60, H); ctx.lineTo(ROAD_RIGHT, H * 0.45); ctx.stroke();
+        for (let lane = 1; lane < 4; lane++) {
+          const xB = ROAD_LEFT + (ROAD_RIGHT - ROAD_LEFT) * (lane / 4) - 30;
+          const xT = ROAD_LEFT + (ROAD_RIGHT - ROAD_LEFT) * (lane / 4);
+          ctx.strokeStyle = 'rgba(245,242,236,0.35)'; ctx.lineWidth = 2;
+          ctx.setLineDash([30, 30]); ctx.lineDashOffset = -roadOffset;
+          ctx.beginPath(); ctx.moveTo(xT, H * 0.45); ctx.lineTo(xB, H); ctx.stroke();
+          ctx.setLineDash([]);
+        }
+        ctx.fillStyle = '#111';
+        for (let i = 0; i < 5; i++) {
+          ctx.fillRect(i * 30, H * 0.15, 20, H * 0.28);
+          ctx.fillRect(W - 20 - i * 30, H * 0.18, 18, H * 0.25);
+        }
+      }
+
+      function drawPlayerCar() {
+        const x = playerX, y = PLAYER_Y;
+        const alpha = invincible ? (Math.sin(frame * 0.4) > 0 ? 1 : 0.4) : 1;
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = '#2563eb';
+        ctx.beginPath(); ctx.roundRect(x, y, CAR_W, CAR_H, 8); ctx.fill();
+        ctx.fillStyle = '#1d4ed8'; ctx.fillRect(x + 8, y + 10, CAR_W - 16, 35);
+        ctx.fillStyle = 'rgba(147,197,253,0.7)'; ctx.fillRect(x + 10, y + 12, CAR_W - 20, 22);
+        ctx.fillStyle = '#fef08a';
+        ctx.fillRect(x + 6, y + 6, 10, 6); ctx.fillRect(x + CAR_W - 16, y + 6, 10, 6);
+        ctx.fillStyle = '#ef4444';
+        ctx.fillRect(x + 6, y + CAR_H - 12, 10, 6); ctx.fillRect(x + CAR_W - 16, y + CAR_H - 12, 10, 6);
+        ctx.globalAlpha = 1;
+      }
+
+      function drawHazardCar(h) {
+        const x = h.x - CAR_W / 2, y = h.y;
+        ctx.fillStyle = h.type.color;
+        ctx.beginPath(); ctx.roundRect(x, y, CAR_W, CAR_H, 8); ctx.fill();
+        ctx.fillStyle = 'rgba(0,0,0,0.4)'; ctx.fillRect(x + 8, y + 20, CAR_W - 16, 30);
+        ctx.fillStyle = 'rgba(0,0,0,0.7)'; ctx.fillRect(x - 20, y - 20, 90, 16);
+        ctx.fillStyle = '#fff'; ctx.font = '9px DM Sans, sans-serif';
+        ctx.fillText(h.type.label, x - 16, y - 8);
+        ctx.fillStyle = '#ef4444';
+        ctx.fillRect(x + 6, y + CAR_H - 12, 10, 5); ctx.fillRect(x + CAR_W - 16, y + CAR_H - 12, 10, 5);
+      }
+
+      function drawParticles() {
+        particles = particles.filter(p => p.life > 0);
+        for (const p of particles) {
+          ctx.globalAlpha = p.life / p.maxLife;
+          ctx.fillStyle = p.color;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+          p.x += p.vx; p.y += p.vy; p.life--;
+        }
+        ctx.globalAlpha = 1;
+      }
+
+      function spawnParticles(x, y, color) {
+        for (let i = 0; i < 20; i++) {
+          particles.push({ x, y, vx: (Math.random()-0.5)*6, vy: (Math.random()-0.5)*6, r: Math.random()*5+2, color, life: 30, maxLife: 30 });
+        }
+      }
+
+      function spawnHazard() {
+        const laneIdx = Math.floor(Math.random() * 4);
+        const laneX = ROAD_LEFT + (ROAD_RIGHT - ROAD_LEFT) * ((laneIdx + 0.5) / 4);
+        const type = HAZARD_TYPES[Math.floor(Math.random() * HAZARD_TYPES.length)];
+        const erratic = type.label === 'Distracted Driver' || type.label === 'Drunk Driver';
+        hazards.push({ x: laneX, y: -CAR_H, type, erratic, erraticTimer: 0, erraticDir: 1, speed: 2 + Math.random() * 2 + speed * 0.3 });
+      }
+
+      function checkCollision(h) {
+        return (playerX + 4) < (h.x + CAR_W/2) && (playerX + CAR_W - 4) > (h.x - CAR_W/2)
+            && (PLAYER_Y + 8) < (h.y + CAR_H) && (PLAYER_Y + CAR_H - 8) > h.y;
+      }
+
+      function getSimRating(s) {
+        if (s >= 85) return { label: 'Excellent Driver', color: '#4ade80', bg: 'rgba(74,222,128,0.15)', msg: "Outstanding! You demonstrated safe, attentive driving. You'd pass our course with flying colors." };
+        if (s >= 70) return { label: 'Good Driver', color: '#86efac', bg: 'rgba(134,239,172,0.15)', msg: "Solid performance. A few close calls, but you stayed in control. Our course can sharpen your skills further." };
+        if (s >= 50) return { label: 'Needs Improvement', color: '#facc15', bg: 'rgba(250,204,21,0.15)', msg: "You encountered multiple hazards. Our course teaches hazard anticipation and defensive driving." };
+        return { label: 'License Revoked', color: '#ef4444', bg: 'rgba(239,68,68,0.15)', msg: "Too many collisions. This is exactly why our mandatory remedial course exists — to prevent these accidents on real roads." };
+      }
+
+      function endSim() {
+        simState = 'gameover';
+        const r = getSimRating(score);
+        const fs = document.getElementById('sim-final-score');
+        fs.textContent = Math.max(0, Math.round(score)); fs.style.color = r.color;
+        const badge = document.getElementById('sim-final-rating');
+        badge.textContent = r.label; badge.style.background = r.bg; badge.style.color = r.color;
+        document.getElementById('sim-final-message').textContent = r.msg;
+        document.getElementById('sim-overlay-gameover').style.display = 'flex';
+      }
+
+      function simLoop() {
+        if (simState !== 'playing') return;
+        frame++;
+        if (keys['ArrowLeft']  || keys['a']) playerX = Math.max(ROAD_LEFT - 10, playerX - 4);
+        if (keys['ArrowRight'] || keys['d']) playerX = Math.min(ROAD_RIGHT - CAR_W + 10, playerX + 4);
+        if (keys['ArrowUp']    || keys['w']) speed = Math.min(8, speed + 0.15);
+        if (keys['ArrowDown']  || keys['s']) speed = Math.max(1, speed - 0.2);
+        else speed = Math.max(1, speed - 0.02);
+        roadOffset = (roadOffset + speed * 2) % 60;
+        distance += speed * 0.05;
+        const spawnRate = Math.max(40, 120 - frame * 0.05);
+        if (frame % Math.round(spawnRate) === 0) spawnHazard();
+        hazards = hazards.filter(h => h.y < H + CAR_H + 20);
+        for (const h of hazards) {
+          h.y += h.speed * (speed / 3);
+          if (h.erratic) {
+            h.erraticTimer++;
+            if (h.erraticTimer % 40 === 0) h.erraticDir *= -1;
+            h.x = Math.max(ROAD_LEFT + CAR_W/2, Math.min(ROAD_RIGHT - CAR_W/2, h.x + h.erraticDir * 1.5));
+          }
+          if (!invincible && checkCollision(h)) {
+            spawnParticles(playerX + CAR_W/2, PLAYER_Y + CAR_H/2, h.type.color);
+            lives--; score = Math.max(0, score - 25);
+            showSimTip(h.type.tip);
+            invincible = true;
+            const wrap = document.getElementById('sim-canvas-wrap');
+            wrap.classList.add('hit');
+            setTimeout(() => wrap.classList.remove('hit'), 300);
+            setTimeout(() => { invincible = false; }, 2000);
+            hazards = hazards.filter(x => x !== h);
+            if (lives <= 0) { endSim(); return; }
+          }
+        }
+        if (frame % 60 === 0 && score < 100) score = Math.min(100, score + 0.5);
+        updateSimHUD();
+        ctx.clearRect(0, 0, W, H);
+        drawRoad();
+        for (const h of hazards) drawHazardCar(h);
+        drawPlayerCar();
+        drawParticles();
+        if (speed > 5) {
+          ctx.strokeStyle = `rgba(245,242,236,${(speed - 5) * 0.04})`; ctx.lineWidth = 1;
+          for (let i = 0; i < 8; i++) {
+            const sx = Math.random() * W;
+            ctx.beginPath(); ctx.moveTo(sx, 0); ctx.lineTo(sx + (Math.random()-0.5)*10, H); ctx.stroke();
+          }
+        }
+        requestAnimationFrame(simLoop);
+      }
+
+      document.getElementById('sim-btn-start').addEventListener('click', () => {
+        document.getElementById('sim-overlay-start').style.display = 'none';
+        initSim(); simState = 'playing'; simLoop();
+      });
+      document.getElementById('sim-btn-restart').addEventListener('click', () => {
+        document.getElementById('sim-overlay-gameover').style.display = 'none';
+        initSim(); simState = 'playing'; simLoop();
+      });
+
+      window.addEventListener('keydown', e => {
+        if (simState === 'playing') {
+          keys[e.key] = true;
+          if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) e.preventDefault();
+        }
+      });
+      window.addEventListener('keyup', e => { keys[e.key] = false; });
+
+      canvas.addEventListener('touchstart', e => {
+        e.preventDefault();
+        const rect = canvas.getBoundingClientRect();
+        for (const t of e.touches) {
+          if (t.clientX - rect.left < rect.width / 2) keys['ArrowLeft'] = true;
+          else keys['ArrowRight'] = true;
+        }
+      }, { passive: false });
+      canvas.addEventListener('touchend', e => {
+        e.preventDefault(); keys['ArrowLeft'] = false; keys['ArrowRight'] = false;
+      }, { passive: false });
+
+      // Draw idle preview
+      ctx.clearRect(0, 0, W, H); drawRoad();
+      playerX = W / 2 - CAR_W / 2; drawPlayerCar();
+    })();
+  </script>
+</body>
+</html>
